@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Petugas | TRASHFORMER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .status-chip { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        .btn-action { @apply flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition-all active:scale-95 shadow-sm; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a th:href="@{/dashboard}" class="flex items-center gap-2 group">
+                    <div class="bg-blue-600 p-1.5 rounded-lg group-hover:rotate-12 transition-transform">
+                        <i data-lucide="recycle" class="text-white w-5 h-5"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tighter text-slate-900">TRASHFORMER</span>
+                </a>
+                <span class="hidden sm:inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase">Petugas Lapangan</span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex flex-col items-end mr-2">
+                    <span class="text-sm font-bold text-slate-900" th:text="${dashboard.namaPetugas}">Nama Petugas</span>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold text-blue-600">Verified Officer</span>
+                </div>
+                <form method="post" th:action="@{/logout}">
+                    <button type="submit" class="p-2.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all border border-transparent hover:border-red-100">
+                        <i data-lucide="log-out" class="w-5 h-5"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-[1440px] mx-auto p-4 md:p-8 space-y-8">
+        
+        <!-- Alerts -->
+        <div th:if="${successMessage}" class="flex items-center gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-700 animate-in fade-in slide-in-from-top-4 duration-500">
+            <i data-lucide="check-circle" class="w-5 h-5"></i>
+            <p class="text-sm font-semibold" th:text="${successMessage}"></p>
+        </div>
+        <div th:if="${errorMessage}" class="flex items-center gap-3 p-4 rounded-2xl bg-red-50 border border-red-100 text-red-700">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+            <p class="text-sm font-semibold" th:text="${errorMessage}"></p>
+        </div>
+
+        <header>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 text-slate-700 text-[10px] font-black uppercase tracking-widest mb-3">
+                <i data-lucide="shield-check" class="w-3 h-3 text-blue-600"></i> Operation Dashboard
+            </div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">Selamat Bertugas, <span th:text="${dashboard.namaPetugas}">Petugas</span>!</h1>
+            <p class="text-slate-500 mt-1 max-w-2xl">Pantau antrean laporan warga dan kelola data setoran sampah secara real-time untuk lingkungan yang lebih bersih.</p>
+        </header>
+
+        <!-- Stats Grid -->
+        <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-l-blue-500">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Setoran Ditangani</p>
+                <div class="flex items-center gap-2">
+                    <span class="text-3xl font-black text-slate-900" th:text="${dashboard.totalSetoranDitangani}">0</span>
+                    <i data-lucide="package" class="w-5 h-5 text-blue-200"></i>
+                </div>
+            </div>
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-l-emerald-500">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Berat Akumulasi</p>
+                <div class="flex items-end gap-1">
+                    <span class="text-3xl font-black text-slate-900" th:text="${dashboard.totalBeratDitangani}">0</span>
+                    <span class="text-xs font-bold text-slate-400 mb-1.5 uppercase">Kg</span>
+                </div>
+            </div>
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-l-purple-500">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Verifikasi Hari Ini</p>
+                <span class="text-3xl font-black text-slate-900" th:text="${dashboard.totalVerifikasiHariIni}">0</span>
+            </div>
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-l-amber-500">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Laporan Diproses</p>
+                <span class="text-3xl font-black text-slate-900" th:text="${dashboard.totalLaporanDiproses}">0</span>
+            </div>
+            <div class="glass-card p-5 rounded-2xl bg-slate-900 text-white border-none relative overflow-hidden group">
+                <div class="relative z-10">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Laporan Baru</p>
+                    <span class="text-3xl font-black text-blue-400" th:text="${dashboard.totalLaporanBaru}">0</span>
+                </div>
+                <i data-lucide="bell" class="absolute -right-2 -bottom-2 w-16 h-16 text-white/10 group-hover:rotate-12 transition-transform"></i>
+            </div>
+        </section>
+
+        <!-- Main Task: Review Laporan -->
+        <section class="glass-card rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
+                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i data-lucide="clipboard-list" class="w-5 h-5"></i></div>
+                    Daftar Laporan untuk Ditinjau
+                </h2>
+                <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-tighter" th:text="${#lists.size(laporanList) + ' TUGAS ANTRI'}">0 TUGAS</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-black tracking-widest">
+                        <tr>
+                            <th class="px-6 py-4">Warga & Tanggal</th>
+                            <th class="px-6 py-4">Detail Laporan</th>
+                            <th class="px-6 py-4">Lokasi</th>
+                            <th class="px-6 py-4">Status</th>
+                            <th class="px-6 py-4">Bukti</th>
+                            <th class="px-6 py-4 min-w-[300px]">Tindakan Petugas</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 bg-white">
+                        <tr th:if="${#lists.isEmpty(laporanList)}">
+                            <td colspan="6" class="px-6 py-12 text-center text-slate-400 italic">
+                                <i data-lucide="coffee" class="w-10 h-10 mx-auto mb-3 opacity-20"></i>
+                                Belum ada laporan masuk untuk saat ini.
+                            </td>
+                        </tr>
+                        <tr th:each="item : ${laporanList}" class="hover:bg-slate-50/50 transition-colors group">
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-bold text-slate-900" th:text="${item.namaWarga}">Nama Warga</span>
+                                    <span class="text-[10px] font-medium text-slate-500" th:text="${item.tanggalLaporan}">2026-01-01</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-semibold text-slate-700" th:text="${item.judulLaporan}">Judul Laporan</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-1.5 text-xs text-slate-600">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-400"></i>
+                                    <span th:text="${item.lokasi}">Lokasi</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="status-chip" 
+                                      th:classappend="${item.statusLaporan == 'BARU' ? 'bg-blue-100 text-blue-700' : 
+                                                       item.statusLaporan == 'DIPROSES' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'}"
+                                      th:text="${item.statusLaporan}">BARU</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a th:if="${item.fotoUrl != null}" th:href="${item.fotoUrl}" target="_blank" class="p-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-blue-600 hover:text-white transition-all inline-block shadow-sm">
+                                    <i data-lucide="image" class="w-4 h-4"></i>
+                                </a>
+                                <span th:if="${item.fotoUrl == null}" class="text-slate-300 text-xs">-</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <form class="flex flex-col gap-3" method="post" th:action="@{/petugas/laporan/{id}/review(id=${item.id})}">
+                                    <textarea name="keteranganHasil" rows="2" 
+                                              class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all resize-none" 
+                                              placeholder="Berikan catatan penanganan..." required 
+                                              th:text="${item.hasilLaporan != null ? item.hasilLaporan.keteranganHasil : ''}"></textarea>
+                                    <div class="flex gap-2">
+                                        <button type="submit" name="statusLaporan" value="DIPROSES" class="btn-action bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 flex-1">
+                                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Proses
+                                        </button>
+                                        <button type="submit" name="statusLaporan" value="SELESAI" class="btn-action bg-emerald-600 text-white hover:bg-emerald-700 flex-1">
+                                            <i data-lucide="check" class="w-3.5 h-3.5"></i> Selesai
+                                        </button>
+                                        <button type="submit" name="statusLaporan" value="DITOLAK" class="btn-action bg-white text-red-600 hover:bg-red-50 border border-red-100 px-2">
+                                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Secondary Tracking -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Setoran Terbaru -->
+            <div class="glass-card rounded-[2rem] overflow-hidden shadow-lg shadow-slate-200/40">
+                <div class="p-6 border-b border-slate-100 flex items-center gap-3 bg-white">
+                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i data-lucide="truck" class="w-5 h-5"></i></div>
+                    <h3 class="font-bold text-slate-900">Setoran Terbaru</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                            <tr>
+                                <th class="px-6 py-3">Waktu</th>
+                                <th class="px-6 py-3">Warga</th>
+                                <th class="px-6 py-3">Kategori</th>
+                                <th class="px-6 py-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr th:if="${#lists.isEmpty(dashboard.setoranTerbaru)}">
+                                <td colspan="4" class="px-6 py-8 text-center text-xs text-slate-400">Belum ada setoran masuk.</td>
+                            </tr>
+                            <tr th:each="item : ${dashboard.setoranTerbaru}" class="text-xs hover:bg-slate-50/50">
+                                <td class="px-6 py-4 text-slate-500" th:text="${item.tanggalSetoran}">01/01</td>
+                                <td class="px-6 py-4 font-bold text-slate-700" th:text="${item.namaWarga}">Warga</td>
+                                <td class="px-6 py-4 text-slate-600" th:text="${item.namaTipeSampah}">Tipe</td>
+                                <td class="px-6 py-4">
+                                    <span class="text-[9px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full" th:text="${item.status}">DITERIMA</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Laporan Tracking -->
+            <div class="glass-card rounded-[2rem] overflow-hidden shadow-lg shadow-slate-200/40">
+                <div class="p-6 border-b border-slate-100 flex items-center gap-3 bg-white">
+                    <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i data-lucide="history" class="w-5 h-5"></i></div>
+                    <h3 class="font-bold text-slate-900">Histori Laporan</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                            <tr>
+                                <th class="px-6 py-3">Tanggal</th>
+                                <th class="px-6 py-3">Pengirim</th>
+                                <th class="px-6 py-3">Judul</th>
+                                <th class="px-6 py-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr th:if="${#lists.isEmpty(dashboard.laporanTerbaru)}">
+                                <td colspan="4" class="px-6 py-8 text-center text-xs text-slate-400">Belum ada aktivitas laporan.</td>
+                            </tr>
+                            <tr th:each="item : ${dashboard.laporanTerbaru}" class="text-xs hover:bg-slate-50/50">
+                                <td class="px-6 py-4 text-slate-500" th:text="${item.tanggalLaporan}">01/01</td>
+                                <td class="px-6 py-4 font-bold text-slate-700" th:text="${item.namaWarga}">Warga</td>
+                                <td class="px-6 py-4 text-slate-600 truncate max-w-[150px]" th:text="${item.judulLaporan}">Laporan</td>
+                                <td class="px-6 py-4">
+                                    <span class="text-[9px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full" th:text="${item.statusLaporan}">BARU</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="py-12 text-center">
+        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">&copy; 2024 TRASHFORMER Operational System. Unit Petugas Lapangan.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

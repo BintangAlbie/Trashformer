@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | TRASHFORMER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .auth-gradient {
+            background: radial-gradient(circle at top right, #ecfdf5 0%, #f8fafc 50%, #f1f5f9 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="auth-gradient min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="mb-8 text-center">
+        <a th:href="@{/}" class="inline-flex items-center gap-3 group">
+            <div class="bg-emerald-600 p-2.5 rounded-xl shadow-lg shadow-emerald-200 group-hover:scale-110 transition-transform">
+                <i data-lucide="recycle" class="text-white w-7 h-7"></i>
+            </div>
+            <span class="text-3xl font-extrabold tracking-tighter text-emerald-900">TRASHFORMER</span>
+        </a>
+    </div>
+
+    <main class="w-full max-w-md">
+        <section class="glass-effect p-8 rounded-3xl shadow-2xl shadow-slate-200/60 border border-white">
+            
+            <div class="mb-8">
+                <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-3">
+                    Akses Sistem
+                </span>
+                <h1 class="text-2xl font-bold text-slate-900">Selamat Datang Kembali</h1>
+                <p class="text-slate-500 mt-2 text-sm">
+                    Admin, petugas, dan warga masuk melalui pintu yang sama.
+                </p>
+            </div>
+
+            <!-- Pesan Sukses General -->
+            <div th:if="${successMessage}" class="mb-6 flex items-center gap-3 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 animate-pulse">
+                <i data-lucide="check-circle" class="w-5 h-5 flex-none"></i>
+                <p class="text-sm font-medium" th:text="${successMessage}"></p>
+            </div>
+
+            <!-- Pesan Error Login -->
+            <div th:if="${param.error}" class="mb-6 flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 text-red-700">
+                <i data-lucide="alert-circle" class="w-5 h-5 flex-none"></i>
+                <p class="text-sm font-medium">Email atau password salah. Silakan coba lagi.</p>
+            </div>
+
+            <!-- Pesan Logout -->
+            <div th:if="${param.logout}" class="mb-6 flex items-center gap-3 p-4 rounded-xl bg-blue-50 border border-blue-100 text-blue-700">
+                <i data-lucide="info" class="w-5 h-5 flex-none"></i>
+                <p class="text-sm font-medium">Anda telah berhasil keluar dari sistem.</p>
+            </div>
+
+            <form class="space-y-5" method="post" th:action="@{/login}">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5 ml-1">Email</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </div>
+                        <input type="email" name="username" 
+                               class="w-full pl-11 pr-4 py-3.5 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all placeholder:text-slate-400"
+                               placeholder="contoh@email.com" required>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-1.5 ml-1">
+                        <label class="block text-sm font-semibold text-slate-700">Password</label>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                            <i data-lucide="lock" class="w-5 h-5"></i>
+                        </div>
+                        <input type="password" name="password" 
+                               class="w-full pl-11 pr-4 py-3.5 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all placeholder:text-slate-400"
+                               placeholder="Masukkan password" required>
+                    </div>
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-4">
+                    Masuk Sekarang
+                    <i data-lucide="log-in" class="w-5 h-5"></i>
+                </button>
+            </form>
+
+            <div class="mt-8 pt-6 border-t border-slate-100 text-center text-sm">
+                <p class="text-slate-500">
+                    Belum punya akun warga? 
+                    <a th:href="@{/register}" class="text-emerald-600 font-bold hover:underline decoration-2 underline-offset-4 ml-1">
+                        Daftar di sini
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        <div class="mt-8 text-center">
+            <a th:href="@{/}" class="text-slate-400 hover:text-slate-600 text-sm font-medium inline-flex items-center gap-2 transition-colors">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                Kembali ke Beranda
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Initializing Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

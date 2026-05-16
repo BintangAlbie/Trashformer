@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRASHFORMER - Solusi Pengelolaan Sampah Terpadu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #ecfdf5 0%, #ffffff 50%, #f0fdf4 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="bg-emerald-600 p-2 rounded-lg">
+                        <i data-lucide="recycle" class="text-white w-6 h-6"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-tight text-emerald-800">TRASHFORMER</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="/login" class="text-slate-600 hover:text-emerald-600 font-medium px-4 py-2 transition-colors">Login</a>
+                    <a href="/register" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full font-semibold shadow-lg shadow-emerald-200 transition-all active:scale-95">Register Warga</a>
+                </div>
+                <!-- Mobile Menu Button (Icon only for visual) -->
+                <div class="md:hidden">
+                    <i data-lucide="menu" class="w-6 h-6 text-slate-600"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-gradient pt-16 pb-24 px-4 overflow-hidden">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 animate-fade-in">
+                    <div>
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm font-semibold mb-6">
+                            <i data-lucide="leaf" class="w-4 h-4"></i>
+                            Platform Pengelolaan Sampah Cerdas
+                        </span>
+                        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-slate-900">
+                            Ubah Sampah Menjadi <span class="text-emerald-600">Data & Dampak.</span>
+                        </h1>
+                        <p class="mt-6 text-lg text-slate-600 leading-relaxed max-w-xl">
+                            Website pengelolaan sampah yang menghubungkan warga, petugas, dan admin dalam satu alur kerja digital yang transparan dan efisien.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="/login" class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-xl font-bold transition-all hover:shadow-xl">
+                            Masuk ke Sistem <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                        <a href="/register" class="flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-8 py-4 rounded-xl font-bold transition-all shadow-sm">
+                            Daftar Warga
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="glass-card p-8 rounded-3xl shadow-2xl relative z-10">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                            <i data-lucide="sparkles" class="text-amber-500"></i> Fitur Utama
+                        </h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-4">
+                                <div class="bg-blue-100 p-2 rounded-lg text-blue-600"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                                <div>
+                                    <p class="font-bold">Login Role-Based</p>
+                                    <p class="text-sm text-slate-500">Akses khusus untuk admin, petugas, dan warga.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <div class="bg-orange-100 p-2 rounded-lg text-orange-600"><i data-lucide="camera" class="w-5 h-5"></i></div>
+                                <div>
+                                    <p class="font-bold">Laporan Visual</p>
+                                    <p class="text-sm text-slate-500">Kirim foto bukti laporan sampah secara real-time.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <div class="bg-emerald-100 p-2 rounded-lg text-emerald-600"><i data-lucide="credit-card" class="w-5 h-5"></i></div>
+                                <div>
+                                    <p class="font-bold">Pembayaran Digital</p>
+                                    <p class="text-sm text-slate-500">Bayar jasa kebersihan langsung dari aplikasi.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Decorative background elements -->
+                    <div class="absolute -top-10 -right-10 w-64 h-64 bg-emerald-200/50 rounded-full blur-3xl -z-0"></div>
+                    <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-200/50 rounded-full blur-3xl -z-0"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900">Akses Pengguna</h2>
+                    <p class="text-slate-500 mt-2">Didesain untuk kolaborasi antar pihak</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Warga Card -->
+                    <article class="p-8 rounded-2xl border border-slate-100 hover:border-emerald-200 transition-all hover:shadow-xl group">
+                        <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="users" class="text-emerald-600 w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Warga</h3>
+                        <p class="text-slate-600 leading-relaxed">Melaporkan sampah, memantau status pengambilan, mengirim pembayaran, dan melihat riwayat aktivitas.</p>
+                    </article>
+
+                    <!-- Petugas Card -->
+                    <article class="p-8 rounded-2xl border border-slate-100 hover:border-blue-200 transition-all hover:shadow-xl group">
+                        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="truck" class="text-blue-600 w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Petugas</h3>
+                        <p class="text-slate-600 leading-relaxed">Meninjau laporan masuk, memberikan catatan, memproses pengangkutan, hingga menolak laporan tidak valid.</p>
+                    </article>
+
+                    <!-- Admin Card -->
+                    <article class="p-8 rounded-2xl border border-slate-100 hover:border-purple-200 transition-all hover:shadow-xl group">
+                        <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="layout-dashboard" class="text-purple-600 w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Admin</h3>
+                        <p class="text-slate-600 leading-relaxed">Kelola master data pengguna, verifikasi pembayaran, pantau grafik operasional, dan laporan keuangan.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4 bg-slate-50">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-bold">Alur Penggunaan</h2>
+                    <p class="text-slate-500">Sederhana dan terintegrasi dari awal hingga selesai.</p>
+                    <div class="space-y-8 mt-10">
+                        <div class="flex gap-6">
+                            <div class="flex-none w-10 h-10 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center font-bold text-emerald-600 shadow-sm">1</div>
+                            <p class="text-slate-700">Warga mendaftar melalui menu <code class="bg-slate-200 px-1.5 py-0.5 rounded text-sm font-mono">Register</code>.</p>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-none w-10 h-10 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center font-bold text-emerald-600 shadow-sm">2</div>
+                            <p class="text-slate-700">Warga membuat laporan sampah dengan menyertakan bukti foto lokasi.</p>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-none w-10 h-10 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center font-bold text-emerald-600 shadow-sm">3</div>
+                            <p class="text-slate-700">Petugas memeriksa validitas laporan dan memberikan keputusan (Proses/Tolak).</p>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-none w-10 h-10 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center font-bold text-emerald-600 shadow-sm">4</div>
+                            <p class="text-slate-700">Warga membayar jasa melalui dashboard, dan Admin melakukan verifikasi akhir.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo Access -->
+                <div class="bg-slate-900 text-white p-10 rounded-3xl shadow-2xl space-y-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="key" class="text-emerald-400"></i>
+                        <h2 class="text-2xl font-bold">Akses Demo Cepat</h2>
+                    </div>
+                    <p class="text-slate-400 text-sm italic">Gunakan kredensial ini untuk pengujian sistem awal:</p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+                            <p class="text-xs text-emerald-400 uppercase tracking-wider font-bold mb-1">Admin</p>
+                            <p class="font-mono text-sm">admin@trashformer.local / Admin123!</p>
+                        </div>
+                        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+                            <p class="text-xs text-blue-400 uppercase tracking-wider font-bold mb-1">Petugas</p>
+                            <p class="font-mono text-sm">petugas@trashformer.local / Petugas123!</p>
+                        </div>
+                        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+                            <p class="text-xs text-amber-400 uppercase tracking-wider font-bold mb-1">Warga</p>
+                            <p class="font-mono text-sm">warga@trashformer.local / Warga123!</p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-xl font-bold transition-all mt-4" onclick="document.querySelector('nav').scrollIntoView()">
+                        Login Sekarang
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="bg-emerald-600 p-1.5 rounded-lg">
+                    <i data-lucide="recycle" class="text-white w-4 h-4"></i>
+                </div>
+                <span class="text-lg font-bold tracking-tight text-emerald-800">TRASHFORMER</span>
+            </div>
+            <p class="text-slate-500 text-sm">
+                &copy; 2024 TRASHFORMER Ecosystem. All rights reserved.
+            </p>
+            <div class="flex gap-4">
+                <a href="#" class="text-slate-400 hover:text-emerald-600"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-emerald-600"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-emerald-600"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initializing Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
